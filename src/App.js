@@ -1,23 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
+import Card from "./Components/card.jsx";
+import getData from "./db/db.js";
+import Cart from "./Components/cart.jsx";
 
+import "./App.css";
+import { useState,useEffect } from "react";
+const foods = getData();
+
+const tele = window.Telegram.WebApp;
 function App() {
+  const [cartItem, setCartItem] = useState([]);
+
+  useEffect(()=>{
+    tele.ready();
+  },[])
+
+  const addToCart = (food) => {
+    const exist = cartItem.find((x) => x.id === food.id);
+    if (exist) {
+      setCartItem(
+        cartItem.map((x) =>
+          x.id === food.id ? { ...exist, quantity: exist.quantity + 1 } : x
+        )
+      );
+    } else {
+      setCartItem([...cartItem, { ...food, quantity: 1 }]);
+    }
+  };
+  const removeFromCart = (food) => {
+    const exist = cartItem.find((x) => x.id === food.id);
+    if (exist.quantity === 1) {
+      setCartItem(cartItem.filter((x) => x.id !== food.id));
+    } else {
+      setCartItem(
+        cartItem.map((x) =>
+          x.id === food.id ? { ...exist, quantity: exist.quantity - 1 } : x
+        )
+      );
+    }
+  }; 
+  const onCheckOut =()=>{
+    tele.MainButton.text =  'pay :)'
+    tele.MainButton.show()
+     
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-[#2c1a42]">
+      <div className=" w-1/2 h-full m-auto bg-[#26123f] p-10 text-white">
+        <Cart cartItems={cartItem} onCheckOut={onCheckOut}/>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 ">
+          {foods.map((food) => (
+            <Card food={food} key={food.id} addItem={addToCart} removeItem={removeFromCart}/>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
