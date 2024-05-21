@@ -38,15 +38,15 @@ function App() {
       );
     }
   }; 
-  const onCheckOut =()=>{
-    tele.MainButton.text =  'pay :)'
-    tele.MainButton.show()
+  const onCheckout =()=>{
+    tele.MainButton.text = "Pay :)";
+    tele.MainButton.show();
      
   }
   return (
     // <div className="bg-[#2c1a42]">
       <div className="  bg-[#26123f] p-10 text-white">
-        <Cart cartItems={cartItem} onCheckOut={onCheckOut}/>
+        <Cart cartItems={cartItem} onCheckout={onCheckout}/>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 m-auto">
           {foods.map((food) => (
             <Card food={food} key={food.id} addItem={addToCart} removeItem={removeFromCart}/>
