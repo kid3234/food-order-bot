@@ -44,7 +44,7 @@ function App() {
      
   }
   return (
-    <div className="bg-[#2c1a42]">
+    // <div className="bg-[#2c1a42]">
       <div className=" w-1/2 h-full m-auto bg-[#26123f] p-10 text-white">
         <Cart cartItems={cartItem} onCheckOut={onCheckOut}/>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 ">
@@ -53,7 +53,7 @@ function App() {
           ))}
         </div>
       </div>
-    </div>
+    // </div>
   );
 }
 
