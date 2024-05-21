@@ -45,9 +45,9 @@ function App() {
   }
   return (
     // <div className="bg-[#2c1a42]">
-      <div className="  bg-[#26123f] p-10 text-white">
+      <div className="  bg-[#26123f] p-2 text-white">
         <Cart cartItems={cartItem} onCheckout={onCheckout}/>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 m-auto  justify-center">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 m-auto  justify-center p-10">
           {foods.map((food) => (
             <Card food={food} key={food.id} addItem={addToCart} removeItem={removeFromCart}/>
           ))}
